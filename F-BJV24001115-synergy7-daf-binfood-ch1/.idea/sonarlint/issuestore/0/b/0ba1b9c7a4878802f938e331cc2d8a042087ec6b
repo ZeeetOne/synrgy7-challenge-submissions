@@ -1,0 +1,60 @@
+
+h	java:S112€"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8òßçĞè1
+h	java:S112¼"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8òßçĞè1
+h	java:S112×"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8óßçĞè1
+~
+java:S1192O"\Define a constant instead of duplicating this literal "
+==========================" 6 times.(ÛúÊìûÿÿÿÿ8ößçĞè1
+s
+java:S1192¤"PDefine a constant instead of duplicating this literal "%-12s %2d %,10d" 4 times.(²ñèÏùÿÿÿÿ8ößçĞè1
+}
+java:S1192Q"[Define a constant instead of duplicating this literal "==========================" 7 times.(Åá—•şÿÿÿÿ8ößçĞè1
+L	java:S106<"+Replace this use of System.out by a logger.(äÚ”ûÿÿÿÿ8áâçĞè1
+F	java:S106F"+Replace this use of System.out by a logger.(Áãâ]8ãâçĞè1
+L	java:S106I"+Replace this use of System.out by a logger.(¯–·şÿÿÿÿ8äâçĞè1
+L	java:S106O"+Replace this use of System.out by a logger.(ÛúÊìûÿÿÿÿ8åâçĞè1
+G	java:S106P"+Replace this use of System.out by a logger.(¥À”á8åâçĞè1
+L	java:S106Q"+Replace this use of System.out by a logger.(Åá—•şÿÿÿÿ8æâçĞè1
+G	java:S106R"+Replace this use of System.out by a logger.(¯à­Ú8æâçĞè1
+F	java:S106U"+Replace this use of System.out by a logger.(Á˜ãj8ëâçĞè1
+G	java:S106W"+Replace this use of System.out by a logger.(²¾Œ÷8îâçĞè1
+L	java:S106X"+Replace this use of System.out by a logger.(Ø²»Èúÿÿÿÿ8îâçĞè1
+L	java:S106_"+Replace this use of System.out by a logger.(ÛúÊìûÿÿÿÿ8ñâçĞè1
+G	java:S106`"+Replace this use of System.out by a logger.(ñİÃ´8òâçĞè1
+L	java:S106a"+Replace this use of System.out by a logger.(Åá—•şÿÿÿÿ8òâçĞè1
+G	java:S106b"+Replace this use of System.out by a logger.(§÷¬™8óâçĞè1
+n
+java:S3457b"Q%n should be used in place of \n to produce the platform-specific line separator.(§÷¬™8óâçĞè1
+L	java:S106c"+Replace this use of System.out by a logger.(Ù‡Èºıÿÿÿÿ8ôâçĞè1
+L	java:S106d"+Replace this use of System.out by a logger.(„«º»øÿÿÿÿ8ôâçĞè1
+>
+java:S3864l"!Remove this use of "Stream.peek".(·ËÑÎ8÷âçĞè1
+L	java:S106w"+Replace this use of System.out by a logger.(ÛúÊìûÿÿÿÿ8üâçĞè1
+L	java:S106x"+Replace this use of System.out by a logger.(âµºçÿÿÿÿÿ8ıâçĞè1
+G	java:S106y"+Replace this use of System.out by a logger.(Î¼²8şâçĞè1
+L	java:S106|"+Replace this use of System.out by a logger.(¢Ş“çÿÿÿÿÿ8ÿâçĞè1
+{
+java:S2142"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8€ãçĞè1
+H	java:S106‰"+Replace this use of System.out by a logger.(ŸòÄ¿8ãçĞè1
+H	java:S106Š"+Replace this use of System.out by a logger.(’…ëÒ8ƒãçĞè1
+M	java:S106‹"+Replace this use of System.out by a logger.(Ø²»Èúÿÿÿÿ8ƒãçĞè1
+M	java:S106Œ"+Replace this use of System.out by a logger.(äÚ”ûÿÿÿÿ8„ãçĞè1
+H	java:S106•"+Replace this use of System.out by a logger.(Ç™÷8…ãçĞè1
+M	java:S106™"+Replace this use of System.out by a logger.(¯–·şÿÿÿÿ8†ãçĞè1
+M	java:S106¤"+Replace this use of System.out by a logger.(²ñèÏùÿÿÿÿ8‰ãçĞè1
+M	java:S106§"+Replace this use of System.out by a logger.(¸İ‹úÿÿÿÿ8ŠãçĞè1
+M	java:S106¨"+Replace this use of System.out by a logger.(ı…Èşÿÿÿÿ8‹ãçĞè1
+M	java:S106¬"+Replace this use of System.out by a logger.(ÛúÊìûÿÿÿÿ8ãçĞè1
+H	java:S106­"+Replace this use of System.out by a logger.(Øî ©8ãçĞè1
+M	java:S106®"+Replace this use of System.out by a logger.(Åá—•şÿÿÿÿ8ãçĞè1
+M	java:S106¯"+Replace this use of System.out by a logger.(á©çÓşÿÿÿÿ8ãçĞè1
+H	java:S106°"+Replace this use of System.out by a logger.(ûÔØÌ8ãçĞè1
+H	java:S106´"+Replace this use of System.out by a logger.(ÎˆÜ…8ãçĞè1
+M	java:S106µ"+Replace this use of System.out by a logger.(ÛúÊìûÿÿÿÿ8‘ãçĞè1
+H	java:S106¶"+Replace this use of System.out by a logger.(ÂËÂ°8’ãçĞè1
+M	java:S106·"+Replace this use of System.out by a logger.(Åá—•şÿÿÿÿ8’ãçĞè1
+|
+java:S2142»"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8“ãçĞè1
+M	java:S106Ñ"+Replace this use of System.out by a logger.(£Ê¡úÿÿÿÿ8™ãçĞè1
+|
+java:S2142Ö"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8šãçĞè1
