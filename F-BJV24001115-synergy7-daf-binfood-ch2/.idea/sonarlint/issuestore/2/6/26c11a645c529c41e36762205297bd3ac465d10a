@@ -1,0 +1,8 @@
+
+	java:S112?"FDefine and throw a dedicated exception instead of using a generic one.(Ò‚Òéüÿÿÿÿ8ñÍáĞè1J$23e15a56-47d6-462e-a3c1-8fa849f99a98
+ƒ	java:S125"<This block of commented-out lines of code should be removed.(¨÷¥–úÿÿÿÿ8­’ Òè1J$906c5c9c-fa87-4e2f-9ed4-18900f28e46b
+r	java:S106;"+Replace this use of System.out by a logger.(¢Ş“çÿÿÿÿÿ8ƒÎáĞè1J$467394ff-cd1e-43fa-9373-d4850cd3f192
+¡
+java:S2142>"^Either re-interrupt this method or rethrow the "InterruptedException" that can be caught here.(ä ¹€8„ÎáĞè1J$564764fd-f3b7-4bff-94ff-ad0ed450c832
+u
+java:S1144)"2Remove this unused private "inputQuantity" method.(å÷©¸8Î’ Òè1J$cbb759f8-1fb9-4c0d-9fe0-da3cf7e18a1a
