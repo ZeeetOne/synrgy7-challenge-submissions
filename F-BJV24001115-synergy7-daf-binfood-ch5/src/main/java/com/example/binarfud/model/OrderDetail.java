@@ -2,8 +2,9 @@ package com.example.binarfud.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 
-import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -12,7 +13,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "order_detail")
+@Table(name = "order_details")
+@SQLDelete(sql = "update order_details set deleted = true where id =?")
+@SQLRestriction("deleted = false")
 public class OrderDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -27,7 +30,7 @@ public class OrderDetail {
     private Product product;
 
     private int quantity;
-    private Long total_price;
+    private Long totalPrice;
 
     private boolean deleted = Boolean.FALSE;
 }

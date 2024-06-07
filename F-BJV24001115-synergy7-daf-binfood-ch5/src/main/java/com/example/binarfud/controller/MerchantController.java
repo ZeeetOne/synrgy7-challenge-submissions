@@ -1,23 +1,25 @@
 package com.example.binarfud.controller;
 
 import com.example.binarfud.model.Merchant;
+import com.example.binarfud.model.Order;
 import com.example.binarfud.payload.MerchantDto;
 import com.example.binarfud.payload.requests.MerchantRequestCreateDto;
 import com.example.binarfud.payload.requests.MerchantRequestUpdateDto;
+import com.example.binarfud.payload.requests.MerchantStatusUpdateDto;
+import com.example.binarfud.payload.requests.OrderStatusUpdateDto;
+import com.example.binarfud.payload.responses.OrderResponseDto;
 import com.example.binarfud.service.MerchantService;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 @RestController
-@RequestMapping("merchant")
+@RequestMapping("/api/merchants")
 public class MerchantController {
 
     @Autowired
@@ -28,11 +30,11 @@ public class MerchantController {
 
     // insert a merchant
     @PostMapping
-    public ResponseEntity<Map<String, Object>> saveMerchant(@RequestBody MerchantRequestCreateDto merchantRequestDto) {
+    public ResponseEntity<Map<String, Object>> saveMerchant(@RequestBody MerchantRequestCreateDto merchantRequestCreateDto) {
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         Map<String, Object> data = new HashMap<>();
-        data.put("merchant", merchantService.saveMerchant(merchantRequestDto));
+        data.put("merchant", merchantService.saveMerchant(merchantRequestCreateDto));
         response.put("data", data);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
@@ -44,15 +46,15 @@ public class MerchantController {
     }
 
     // get a merchant by id
-    @GetMapping("/{merchant_id}")
-    public ResponseEntity<Merchant> getMerchant(@PathVariable("merchant_id") UUID merchantId) {
+    @GetMapping("/{merchantId}")
+    public ResponseEntity<Merchant> getMerchant(@PathVariable("merchantId") UUID merchantId) {
         Merchant merchant = merchantService.getMerchant(merchantId);
         return new ResponseEntity<>(merchant, HttpStatus.OK);
     }
 
     // update an existing merchant
-    @PutMapping("/{merchant_id}")
-    public ResponseEntity<Map<String, Object>> updateMerchant(@PathVariable("merchant_id") UUID merchantId, @RequestBody MerchantRequestUpdateDto merchantRequestUpdateDto) {
+    @PutMapping("/{merchantId}")
+    public ResponseEntity<Map<String, Object>> updateMerchant(@PathVariable("merchantId") UUID merchantId, @RequestBody MerchantRequestUpdateDto merchantRequestUpdateDto) {
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
         Map<String, Object> data = new HashMap<>();
@@ -62,9 +64,19 @@ public class MerchantController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
+    @PutMapping("/{merchantId}/status")
+    public ResponseEntity<Map<String, Object>> changeMerchantStatus(@PathVariable UUID merchantId, @RequestBody MerchantStatusUpdateDto merchantStatusUpdateDto) {
+        Map<String, Object> response = new LinkedHashMap<>();
+        response.put("status", "success");
+        Map<String, Object> data = new HashMap<>();
+        data.put("merchant", merchantService.changeMerchantStatus(merchantId, merchantStatusUpdateDto.isOpen()));
+        response.put("data", data);
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
     // delete an existing merchant
-    @DeleteMapping("/{merchant_id}")
-    public ResponseEntity<Map<String, Object>> deleteMerchant(@PathVariable("merchant_id") UUID merchantId) {
+    @DeleteMapping("/{merchantId}")
+    public ResponseEntity<Map<String, Object>> deleteMerchant(@PathVariable("merchantId") UUID merchantId) {
         merchantService.deleteMerchant(merchantId);
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");

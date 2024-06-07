@@ -1,10 +1,12 @@
 package com.example.binarfud.service;
 
 import com.example.binarfud.model.Merchant;
+import com.example.binarfud.model.Order;
 import com.example.binarfud.payload.MerchantDto;
 import com.example.binarfud.payload.requests.MerchantRequestCreateDto;
 import com.example.binarfud.payload.requests.MerchantRequestUpdateDto;
 import com.example.binarfud.repository.MerchantRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,10 +24,10 @@ public class MerchantServiceImpl implements MerchantService {
     MerchantRepository merchantRepository;
 
     @Override
-    public Merchant saveMerchant(MerchantRequestCreateDto merchantRequestDto) {
+    public Merchant saveMerchant(MerchantRequestCreateDto merchantRequestCreateDto) {
         Merchant merchant = new Merchant();
-        merchant.setMerchantName(merchantRequestDto.getMerchantName());
-        merchant.setMerchantLocation(merchantRequestDto.getMerchantLocation());
+        merchant.setMerchantName(merchantRequestCreateDto.getMerchantName());
+        merchant.setMerchantLocation(merchantRequestCreateDto.getMerchantLocation());
         merchantRepository.save(merchant);
         return modelMapper.map(merchant, Merchant.class);
     }
@@ -48,6 +50,14 @@ public class MerchantServiceImpl implements MerchantService {
         existingMerchant.setOpen(merchantRequestUpdateDto.isOpen());
         Merchant updatedMerchant = merchantRepository.save(existingMerchant);
         return modelMapper.map(updatedMerchant, MerchantDto.class);
+    }
+
+    @Override
+    public Merchant changeMerchantStatus(UUID merchantId, boolean open) {
+        Merchant merchant = merchantRepository.findById(merchantId)
+                .orElseThrow(() -> new EntityNotFoundException("Merchant not found with ID: " + merchantId));
+        merchant.setOpen(open);
+        return merchantRepository.save(merchant);
     }
 
     @Override
