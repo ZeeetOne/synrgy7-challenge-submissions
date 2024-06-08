@@ -6,6 +6,7 @@ import com.example.binarfud.dto.requests.SignupRequestDto;
 import com.example.binarfud.dto.responses.JwtResponseDto;
 import com.example.binarfud.security.jwt.JwtUtils;
 import com.example.binarfud.security.service.UserDetailsImpl;
+import com.example.binarfud.service.MailService;
 import com.example.binarfud.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,10 @@ public class AuthController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    MailService mailService;
+
 
     @PostMapping("/signin")
     public ResponseEntity<Map<String, Object>> authenticate(@RequestBody LoginRequestDto loginRequestDto) {
@@ -69,31 +74,47 @@ public class AuthController {
 
     @GetMapping("/oauth2/success")
     public ResponseEntity<Map<String, Object>> googleLoginSuccess(Authentication authentication) {
-        // Create a new Principal object with modified authorities
+        // Get the OidcUser from the authentication
         OidcUser oidcUser = (OidcUser) authentication.getPrincipal();
+
+        // Get roles from the database
+        List<String> rolesFromDB = userService.getUserRoles(oidcUser.getEmail());
         Collection<GrantedAuthority> authorities = new ArrayList<>(oidcUser.getAuthorities());
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER")); // TODO: fix it. Get it from DB
-        UserDetailsImpl modifiedUserDetails = UserDetailsImpl.build(oidcUser);
+        for (String role : rolesFromDB) {
+            authorities.add(new SimpleGrantedAuthority(role));
+        }
+
+        // Create a modified OidcUser
         OidcUser modifiedOidcUser = new DefaultOidcUser(authorities, oidcUser.getIdToken(), oidcUser.getUserInfo());
+
         // Create a new Authentication object with the modified Principal
         Authentication modifiedAuthentication = new UsernamePasswordAuthenticationToken(
                 modifiedOidcUser,
                 oidcUser.getIdToken(),
                 authorities
         );
+
         // Generate token using the modified authentication
         String jwt = jwtUtils.generateToken(modifiedAuthentication);
+
         // Extract user details from the modified authentication
         List<String> roles = modifiedAuthentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
                 .toList();
+
         // Prepare response
         Map<String, Object> response = new HashMap<>();
         response.put("status", "success");
+
         Map<String, Object> data = new HashMap<>();
-        JwtResponseDto jwtResponseDto = new JwtResponseDto(jwt, modifiedUserDetails.getUsername(), roles);
+        JwtResponseDto jwtResponseDto = new JwtResponseDto(jwt, modifiedOidcUser.getEmail(), roles);
         data.put("jwt", jwtResponseDto);
+
         response.put("data", data);
+
+        // Send the token via email
+        mailService.sendMail(modifiedOidcUser.getEmail(), "Your Authentication Token", "Here is your JWT token: " + jwt);
+
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

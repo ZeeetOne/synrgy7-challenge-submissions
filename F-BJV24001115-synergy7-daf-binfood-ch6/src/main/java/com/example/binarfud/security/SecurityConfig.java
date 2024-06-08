@@ -79,7 +79,7 @@ public class SecurityConfig implements WebMvcConfigurer {
                                     oidcUser.getAttribute("email"));
 
                             // Redirect to the new endpoint after successful login
-                            response.sendRedirect("/auth/oauth2/success");
+                            response.sendRedirect("/api/auth/oauth2/success");
                         })
                 );
         return http.build();

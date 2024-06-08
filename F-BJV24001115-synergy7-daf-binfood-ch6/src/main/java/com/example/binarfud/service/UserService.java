@@ -18,4 +18,6 @@ public interface UserService {
     User registerUser(SignupRequestDto signupRequestDto);
 
     void createUserPostLogin(String name, String email);
+
+    public List<String> getUserRoles(String email);
 }
