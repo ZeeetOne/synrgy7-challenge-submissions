@@ -1,0 +1,5 @@
+Using VPS
+http://202.10.40.210/daffa/login
+
+Using Railway
+https://binarfud-ch6-deploy-production.up.railway.app/daffa/login
