@@ -1,23 +1,15 @@
 package com.binarfud.binarfud_service.initialization;
 
-import com.binarfud.binarfud_service.entity.Merchant;
-import com.binarfud.binarfud_service.entity.Order;
-import com.binarfud.binarfud_service.entity.OrderDetail;
-import com.binarfud.binarfud_service.entity.Product;
+import com.binarfud.binarfud_service.entity.*;
 import com.binarfud.binarfud_service.entity.accounts.ERole;
 import com.binarfud.binarfud_service.entity.accounts.Role;
 import com.binarfud.binarfud_service.entity.accounts.User;
 import com.binarfud.binarfud_service.repository.*;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -46,14 +38,11 @@ public class DataInitializer {
     private OrderDetailRepository orderDetailRepository;
 
     @Autowired
-    private Environment env;
-
-    @Value("${app.data.initialized}")
-    private boolean isInitialized;
+    private InitializationStatusRepository initializationStatusRepository;
 
     @PostConstruct
     public void init() {
-        if (!isInitialized) {
+        if (!initializationStatusRepository.existsByInitialized(true)) {
             initializeRoles();
             initializeUsers();
             initializeMerchantsAndProducts();
@@ -63,14 +52,9 @@ public class DataInitializer {
     }
 
     private void setInitialized() {
-        try {
-            Properties properties = new Properties();
-            properties.load(Files.newInputStream(Paths.get("src/main/resources/application.properties")));
-            properties.setProperty("app.data.initialized", "true");
-            properties.store(Files.newOutputStream(Paths.get("src/main/resources/application.properties")), null);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        InitializationStatus status = new InitializationStatus();
+        status.setInitialized(true);
+        initializationStatusRepository.save(status);
     }
 
     private void initializeRoles() {
@@ -155,7 +139,7 @@ public class DataInitializer {
 
         Order order = new Order();
         order.setOrderTime(LocalDateTime.now());
-        order.setDestinationAddress("Destination Address");
+        order.setDestinationAddress("Lokasimu");
         order.setUser(user);
         order.setCompleted(false);
 

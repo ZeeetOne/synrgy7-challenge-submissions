@@ -11,10 +11,12 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    Order saveOrder(OrderRequestCreateDto orderRequestCreateDto);
+//    Order saveOrder(OrderRequestCreateDto orderRequestCreateDto);
     List<Order> getOrdersByUser(User user);
     Order getOrder(UUID orderId);
     OrderDto updateOrder(UUID orderId, OrderRequestUpdateDto orderRequestUpdateDto);
     Order confirmOrderCompletion(UUID orderId, boolean completed);
     void deleteOrder(UUID orderId);
+
+    Order saveOrder(Order order);
 }

@@ -10,6 +10,7 @@ import com.binarfud.binarfud_service.repository.OrderRepository;
 import com.binarfud.binarfud_service.repository.ProductRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -37,7 +38,7 @@ public class OrderServiceImpl implements OrderService {
 
     private static final String ORDERNOTFOUNDWITHID = "Order not found with ID: ";
 
-    @Override
+    /* @Override
     public Order saveOrder(OrderRequestCreateDto orderRequestCreateDto) {
         Order order = new Order();
         order.setUser(userService.getUser(orderRequestCreateDto.getUserId()));
@@ -45,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
         order.setDestinationAddress(orderRequestCreateDto.getDestinationAddress());
         orderRepository.save(order);
         return modelMapper.map(order, Order.class);
-    }
+    } */
 
     @Override
     public List<Order> getOrdersByUser(User user) {
@@ -89,4 +90,12 @@ public class OrderServiceImpl implements OrderService {
         existingOrder.setDeleted(true);
         orderRepository.save(existingOrder);
     }
+
+    @Override
+    @Transactional
+    public Order saveOrder(Order order) {
+        return orderRepository.save(order);
+    }
+
+
 }

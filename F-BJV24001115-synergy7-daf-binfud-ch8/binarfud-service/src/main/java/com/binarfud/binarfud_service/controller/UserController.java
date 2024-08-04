@@ -68,7 +68,7 @@ public class UserController {
     }
 
     @Operation(summary = "Update user", description = "Update an existing user")
-    @PatchMapping("/{userId}")
+    @PutMapping("/{userId}")
     public ResponseEntity<Map<String, Object>> updateUser(@PathVariable("userId") UUID userId, @RequestBody UserRequestDto userRequestDto) {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("status", "success");

@@ -1,15 +1,18 @@
 package com.binarfud.binarfud_service.controller;
 
 import com.binarfud.binarfud_service.dto.OrderDto;
-import com.binarfud.binarfud_service.dto.requests.OrderRequestCreateDto;
+import com.binarfud.binarfud_service.dto.requests.OrderRequestCreateDtos;
 import com.binarfud.binarfud_service.dto.requests.OrderRequestUpdateDto;
 import com.binarfud.binarfud_service.dto.requests.OrderStatusUpdateDto;
 import com.binarfud.binarfud_service.dto.responses.OrderResponseDto;
+import com.binarfud.binarfud_service.dto.responses.OrderResponseDtos;
 import com.binarfud.binarfud_service.entity.Order;
+import com.binarfud.binarfud_service.service.OrderFacade;
 import com.binarfud.binarfud_service.service.OrderService;
 import com.binarfud.binarfud_service.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,23 +34,29 @@ public class OrderController {
     private OrderService orderService;
 
     @Autowired
+    private OrderFacade orderFacade;
+
+    @Autowired
     private UserService userService;
 
     private static final String ORDER = "order";
     private static final String STATUS = "status";
     private static final String SUCCESS = "success";
+    private static final String DATA = "data";
 
     @Operation(summary = "Save an order", description = "Save a new order")
-    @PreAuthorize("hasRole('USER') and principal.isVerified()")
+//    @PreAuthorize("hasRole('USER') and principal.isVerified()")
     @PostMapping
-    public ResponseEntity<Map<String, Object>> saveOrder(@RequestBody OrderRequestCreateDto orderRequestCreateDto) {
+    public ResponseEntity<Map<String, Object>> saveOrder(@RequestHeader("Authorization") String token,
+                                                         @RequestBody @Valid OrderRequestCreateDtos orderDto) {
+        Map<String, Object> data = new HashMap<>();
+        OrderResponseDtos order = orderFacade.saveOrderWithDetails(orderDto);
+        data.put(ORDER, order);
+
         Map<String, Object> response = new LinkedHashMap<>();
         response.put(STATUS, SUCCESS);
-        Map<String, Object> data = new HashMap<>();
-        Order order = orderService.saveOrder(orderRequestCreateDto);
-        OrderResponseDto orderResponseDto = modelMapper.map(order, OrderResponseDto.class);
-        data.put(ORDER, orderResponseDto);
-        response.put("data", data);
+        response.put(DATA, data);
+
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
